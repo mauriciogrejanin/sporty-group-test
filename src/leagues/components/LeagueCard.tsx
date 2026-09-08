@@ -1,9 +1,4 @@
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { Card, CardActionArea, CardContent, Chip, Stack, Typography } from '@mui/material';
 import type { League } from '../api';
 
 interface LeagueCardProps {

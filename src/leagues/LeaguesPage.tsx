@@ -1,8 +1,4 @@
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import LinearProgress from '@mui/material/LinearProgress';
-import Stack from '@mui/material/Stack';
+import { Alert, Button, Container, LinearProgress, Stack } from '@mui/material';
 import { useMemo, useState } from 'react';
 import type { League } from './api';
 import { BadgeDialog } from './components/BadgeDialog/BadgeDialog';

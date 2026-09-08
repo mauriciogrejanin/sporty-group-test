@@ -1,5 +1,4 @@
-import Grid from '@mui/material/Grid';
-import Skeleton from '@mui/material/Skeleton';
+import { Grid, Skeleton } from '@mui/material';
 
 const PLACEHOLDERS = 8;
 

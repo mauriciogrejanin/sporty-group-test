@@ -1,5 +1,4 @@
-import Skeleton from '@mui/material/Skeleton';
-import Stack from '@mui/material/Stack';
+import { Skeleton, Stack } from '@mui/material';
 import { BADGE_SIZE } from './BadgeContent';
 
 export function BadgeSkeleton() {

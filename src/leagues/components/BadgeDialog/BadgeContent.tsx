@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { Box, Stack, Typography } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import type { League } from '../../api';
 import { leagueSeasonsOptions } from '../../queries';
