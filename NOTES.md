@@ -7,7 +7,6 @@ The only AI tool was Claude Code, through its extension in Cursor. It worked as 
 - **Planning partner.** Before any code, we went through stack, folder layout, API contract, cache strategy and HTTP client in a plan-mode conversation. I asked for opinions and trade-offs, pushed back where I disagreed, and approved each step before it ran. That conversation is where most of the decisions below were made, including where each kind of state should live.
 - **Investigation.** It probed TheSportsDB with `curl` and found that the free key returns only 10 Soccer leagues from `all_leagues.php`, with no alternate names. That finding shaped the data-source decision.
 - **First drafts.** Code and tests were drafted module by module; I read and adjusted all of it.
-- **Checks I would have skipped by hand.** A benchmark of per-item validation cost before deciding to keep it, screenshots at 360px and 1280px, and request counting to prove the cache.
 
 ## Design decisions
 
@@ -18,7 +17,7 @@ The only AI tool was Claude Code, through its extension in Cursor. It worked as 
 - **zod at the boundary, strict envelope and tolerant items.** A wrong envelope fails loudly with a retry; a bad item is dropped and reported, never blanks the list. Domain types are the validated API types: with a large contract, renaming fields on the client does not scale.
 - **Native `fetch` in one helper** with timeout, abort signal and a typed error. Two public GETs do not need axios.
 - **UI states belong to their components.** Skeleton, progress while enriching, error with retry that keeps what already arrived, empty state with clear, and a badge dialog on `Suspense` plus an error boundary. The badge shown is the most recent season that has one.
-- **Cache.** One hour of freshness, in memory. Clicking the same league twice makes one request; the README shows how to check.
+- **Cache.** One hour of freshness, in memory. Clicking the same league twice makes one request.
 - **Mobile-first**, checked at 360px and 1280px, no layout shift when the badge loads.
 - **Tooling.** Strict TypeScript, zero `any`, type-aware ESLint, Prettier, Vitest.
 
