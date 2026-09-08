@@ -1,6 +1,6 @@
 /// <reference types="vitest/config" />
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,4 +11,4 @@ export default defineConfig({
     setupFiles: ['./src/setupTests.ts'],
     exclude: ['e2e/**', 'node_modules/**'],
   },
-})
+});
