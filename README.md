@@ -1,32 +1,50 @@
-# React + TypeScript + Vite
+# Sports Leagues
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Single-page app that lists sports leagues from [TheSportsDB](https://www.thesportsdb.com/free_sports_api), with a search box, a sport filter and a season badge that loads when you click a league. Built for the Sporty Group frontend home assignment.
 
-Currently, two official plugins are available:
+Design decisions and how AI tools were used: [NOTES.md](NOTES.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Requirements
 
-## React Compiler
+- Node 20.19 or newer
+- yarn 1.x (`npm install` also works; yarn is the tested path)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Run
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+yarn
+yarn dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`yarn test` runs the unit tests, `yarn build` type-checks and builds to `dist/`. Other scripts (`lint`, `format`, `typecheck`, `preview`) are in `package.json`.
+
+## Configuration
+
+`.env` holds the API base URL:
+
+```
+VITE_SPORTSDB_BASE_URL=https://www.thesportsdb.com/api/v1/json/3
+```
+
+## Project structure
+
+```
+src/
+  main.tsx                 providers: QueryClientProvider, BrowserRouter
+  App.tsx                  AppBar + LeaguesPage
+  queryClient.ts           TanStack Query defaults and error logging
+  http/                    generic HTTP: getJson (fetch + zod envelope), parseItems (per-item validation)
+  leagues/                 the domain module
+    api.ts                 zod contract, League and Season types, fetch functions
+    queries.ts             query keys and queryOptions
+    LeaguesPage.tsx        composes filters, list and dialog
+    utils/                 pure functions: filterLeagues, mergeLeagues
+    hooks/                 useLeagueSources (data), useLeagueFilters (URL state)
+    components/            LeagueFilters, LeagueList, LeagueCard, BadgeDialog/
+```
+
+Tests sit next to the file they test (`x.ts` + `x.test.ts`). Types are declared in the file that produces them; there is no `types/` folder.
+
+## Data source
+
+On the free key, `all_leagues.php` returns only 10 Soccer leagues and no alternate names. The app keeps it as the primary source and enriches it with `search_all_leagues.php?s=<sport>` for five sports (Soccer, Basketball, Motorsport, Ice Hockey, American Football), merged by `idLeague`. The sport dropdown is derived from the merged data.
